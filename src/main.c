@@ -29,6 +29,7 @@ int main() {
 	char c;
 	char aux[NUMER_MAX];
 	float numero=0, i=1;;
+	int j;
 
 
 	while (c != '\n') {
@@ -61,8 +62,19 @@ int main() {
 
 
 
-	printf("%.1f\n", numero);
+	sprintf(aux, "%f", numero);				//coloca numero em string
 
+	j=strlen(aux)-1;	
+
+	while(aux[j] == '0'){					//le string ate o ponto	
+		j--;	
+	}
+	if (aux[j] != '.')					//volta uma casa se não for o ponto
+		j++;
+
+	aux[j]='\0';						//encerra string
+
+	printf("%s\n", aux);
 
 	return 0;
 }
