@@ -12,12 +12,12 @@
 float converte_vetor(char * vetor_ascii){
 	float num=0;
 	int i=0, d = 1;
-	while (vetor_ascii[i] != '\0')
+	while (vetor_ascii[i] != '\0')	//conta caracteres
 		i++;
 
 	i--;
 
-	for(; i >= 0; i--){
+	for(; i >= 0; i--){		//soma os caracteres menos 48 para converter em num
 		num+=(vetor_ascii[i]-48)*d;
 		d*=10;
 	}
@@ -46,11 +46,12 @@ int main() {
 				scanf("%c", &c);		//pula o ponto/virgula
 				i = 0.1;			//reseta contador de decimos
 
-				while ( c > 47 && c < 58 )
+				while ( c > 47 && c < 58 ){
+					numero+= (c-48)*i;	//soma o algarismo na variavel 'decimal'
 					scanf("%c", &c);
 
-				numero+= (c-48)*i;	//soma o algarismo na variavel 'decimal'
-				i/=10;			//dimunui o peso do algarismo
+					i/=10;			//dimunui o peso do algarismo
+				}
 			}
 
 		}	
@@ -60,7 +61,7 @@ int main() {
 
 
 
-	printf("%f\n", numero);
+	printf("%.1f\n", numero);
 
 
 	return 0;
