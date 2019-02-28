@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <strings.h>
-#define NUMER_MAX 10
+#define NUMER_MAX 50		//tamanho maximo da parte inteira
 
 float converte_vetor(char * vetor_ascii){
 	float num=0;
@@ -26,43 +26,49 @@ float converte_vetor(char * vetor_ascii){
 }
 
 int main() {
-	char c;
+	char c=' ';		//comeca com espaco para caso haja um float logo no comeco
 	char aux[NUMER_MAX];
-	float numero=0, i=1;;
+	float numero=0, final=0, i=1;;
 	int j;
 
-
 	while (c != '\n') {
-		scanf("%c", &c);
 
-		if ( c > 47 && c < 58 ){			//verifica se o caractere e numerico
-			aux[0] = '\0';
-			while ( c > 47 && c < 58 ) {		//se for continua lendo ate chegar num caractere nao numerico
-				strncat( aux, &c, 1);
-				scanf("%c", &c);
-			}
-			numero+=converte_vetor(aux);
-
-			if( c == '.' || c == ','  )	{	//se houver uma vigula ou ponto começa a ler a parte numero
-				scanf("%c", &c);		//pula o ponto/virgula
-				i = 0.1;			//reseta contador de decimos
-
-				while ( c > 47 && c < 58 ){
-					numero+= (c-48)*i;	//soma o algarismo na variavel 'decimal'
+		if ( c ==' '){					//para não ter uma string grudada antes
+			scanf("%c", &c);
+			if ( c > 47 && c < 58 ){		//verifica se o caractere e numerico
+				numero=0;
+				aux[0] = '\0';
+				while ( c > 47 && c < 58 ) {		//se for continua lendo ate chegar num caractere nao numerico
+					strncat( aux, &c, 1);
 					scanf("%c", &c);
-
-					i/=10;			//dimunui o peso do algarismo
 				}
-			}
+				numero+=converte_vetor(aux);
 
-		}	
+				if( c == '.' || c == ','  )	{	//se houver uma vigula ou ponto começa a ler a parte numero
+					scanf("%c", &c);		//pula o ponto/virgula
+					i = 0.1;			//reseta contador de decimos
+
+					while ( c > 47 && c < 58 ){
+						numero+= (c-48)*i;	//soma o algarismo na variavel 'decimal'
+						scanf("%c", &c);
+
+						i/=10;			//dimunui o peso do algarismo
+					}
+				}
+
+				if (c == ' ' || c == '\n')		//para a string nao estar grudade em nada no final
+					final+=numero;
+			}	
+		}
+		else				//se logo depois do float houver ' ' pula para ver se ha outro float
+			scanf("%c", &c);
 
 
 	}
 
 
 
-	sprintf(aux, "%f", numero);				//coloca numero em string
+	sprintf(aux, "%f", final);				//coloca numero em string
 
 	j=strlen(aux)-1;	
 
